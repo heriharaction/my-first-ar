@@ -40,7 +40,10 @@
   <body style="margin: 0; overflow: hidden;">
     <!-- ARの舞台をセット -->
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      
+
+      <!-- ☀️ 【追加】全体を明るくするライト（光の色と強さを指定） -->
+  <a-light type="ambient" color="#ffffff" intensity="1.2"></a-light>
+
       <!-- 🟢 【1つ目のマーカー】定番のHIROマーカー -->
       <a-marker preset="hiro">
         <a-entity
