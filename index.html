@@ -3,27 +3,35 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>はじめてのWebAR</title>
+    <title>複数のマーカーを使うWebAR</title>
 
-    <!-- エラーが起きない安心な組み合わせの頭脳を読み込む -->
+    <!-- 頭脳の読み込み -->
     <script src="./js/aframe.min.js"></script>
     <script src="./js/aframe-ar.js"></script>
   </head>
   <body style="margin: 0; overflow: hidden;">
-    <!-- カメラを起動してARモードにする -->
+    <!-- ARの舞台をセット -->
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
       
-      <!-- HIROマーカーを見つけたら発動する -->
+      <!-- 🟢 【1つ目のマーカー】定番のHIROマーカー -->
       <a-marker preset="hiro">
-        <!-- 3Dモデルを呼び出して、大きさと位置を整える -->
         <a-entity
-          gltf-model="./assets/model.glb"
+          gltf-model="./assets/model1.glb"
           position="0 0 0"
-          scale="0.1 0.1 0.1">
+          scale="0.5 0.5 0.5">
         </a-entity>
       </a-marker>
 
-      <!-- カメラの目線設定 -->
+      <!-- 🔵 【2つ目のマーカー】自分で作ったオリジナルのマーク -->
+      <a-marker type="pattern" url="./assets/marker2.patt">
+        <a-entity
+          gltf-model="./assets/model2.glb"
+          position="0 0 0"
+          scale="0.5 0.5 0.5">
+        </a-entity>
+      </a-marker>
+
+      <!-- カメラの設定 -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
