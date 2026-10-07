@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+    <script>
+  // 画面が自動で暗く（スリープ）なるのを防ぐプログラム
+  let wakeLock = null;
+
+  async function requestWakeLock() {
+    try {
+      // ブラウザがスリープ防止機能に対応しているか確認
+      if ('wakeLock' in navigator) {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log('画面スリープ防止が有効になりました');
+      }
+    } catch (err) {
+      console.log(`スリープ防止機能のエラー: ${err.name}, ${err.message}`);
+    }
+  }
+
+  // ページを読み込んだタイミングでスリープ防止をONにする
+  window.addEventListener('load', () => {
+    requestWakeLock();
+  });
+
+  // 一度ほかのアプリに切り替えてから、もう一度AR画面に戻ってきたときにも自動で再ONにする
+  document.addEventListener('visibilitychange', async () => {
+    if (wakeLock !== null && document.visibilityState === 'visible') {
+      await requestWakeLock();
+    }
+  });
+</script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>複数のマーカーを使うWebAR</title>
